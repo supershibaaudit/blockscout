@@ -1,0 +1,14 @@
+nohup: appending output to ‘nohup.out’
+nohup: appending output to ‘nohup.out’
+Kernel pid terminated (application_controller) ({application_start_failure,explorer,{{shutdown,{failed_to_start_child,'Elixir.Explorer.Counters.AverageBlockTime',{#{'__exception__' => true,'__struct__
+
+Crash dump is being written to: erl_crash.dump...done
+nohup: appending output to ‘nohup.out’
+warning: Supervisor.start_child/2 with a list of args is deprecated, please use DynamicSupervisor instead
+  (elixir 1.12.2) lib/supervisor.ex:826: Supervisor.start_child/2
+  (que 0.10.1) lib/que/server_supervisor.ex:48: Que.ServerSupervisor.add/2
+  (block_scout_web 0.0.1) lib/block_scout_web/controllers/address_contract_verification_controller.ex:55: BlockScoutWeb.AddressContractVerificationController.create/2
+  (block_scout_web 0.0.1) lib/block_scout_web/controllers/address_contract_verification_controller.ex:1: BlockScoutWeb.AddressContractVerificationController.action/2
+  (block_scout_web 0.0.1) lib/block_scout_web/controllers/address_contract_verification_controller.ex:1: BlockScoutWeb.AddressContractVerificationController.phoenix_controller_pipeline/2
+  (phoenix 1.5.13) lib/phoenix/router.ex:352: Phoenix.Router.__call__/2
+

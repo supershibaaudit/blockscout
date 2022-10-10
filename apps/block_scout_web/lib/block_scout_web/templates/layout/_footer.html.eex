@@ -1,0 +1,112 @@
+<footer class="footer">
+  <div class="footer-body container">
+    
+    
+
+    
+    
+
+    <div class="row">
+      <div class="col-xs-12 col-lg-6">
+       
+         <%= if logo_footer() do %>
+            <img  src="/images/footer-logo.png" alt="<%= subnetwork_title() %>" height="28"/>
+          <% end %>
+        <div class="footer-social-icons">
+            <a href="" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Twitter") %>'>
+                <div class="footer-social-icon-container"><img src="/images/twitter.png"></div>
+            </a>
+            <a href="" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Youtube") %>'>
+                <div class="footer-social-icon-container"><img src="/images/youtube.png"></div>
+            </a>
+            <a href="" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Telegram") %>'>
+                <div class="footer-social-icon-container"><img src="/images/telegram.png"></div>
+            </a>
+            <a href="" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Facebook") %>'>
+                <div class="footer-social-icon-container"><img src="/images/facebook.png"></div>
+            </a>
+            <a href="" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Medium") %>'>
+                <div class="footer-social-icon-container"><img src="/images/medium.png"></div>
+            </a>
+        </div>
+      </div>
+
+     
+      <div class="col-xs-12 col-lg-6">
+        <button type="button" class="btn-dark float-right" onclick="addNetwork('web3');">
+          <img class="mr-1" width="15" src="/images/metamask.svg" alt="Metamask"> Add SAFUUX Network
+      </button>
+      </div>
+      <div class="col-xs-12 col-lg-12">
+         
+      </div>
+  </div>
+</footer>
+<script src="/js/web3-utils.min.js"></script>
+<script src="/js/web3-eth.min.js"></script>
+<script src="/js/web3-providers-http.min.js"></script>
+<script type="text/javascript">
+        var eth;
+        var isTestnet = 'true';
+
+        async function addNetwork(type) {
+            
+            if (type === 'web3') {
+                if (typeof ethereum !== 'undefined') {
+                    eth = new Web3Eth(ethereum);
+                } else if (typeof web3 !== 'undefined') {
+                    eth = new Web3Eth(web3.givenProvider);
+                } else {
+                    eth = new Web3Eth(ethereum);
+                }                
+            }            
+
+            if (typeof eth !== 'undefined') {
+                var network = 0;
+                network = await eth.net.getId();
+                netID = network.toString();
+                var params;
+                if (isTestnet == "false") {
+                    if (netID == "4836") {
+                        alert("SAFUUX Network has already been added to Metamask.");
+                        return;
+                    } else {
+                        params = [{
+                            chainId: '0x12E4',
+                            chainName: 'Dwebox Chain Mainnet',
+                            nativeCurrency: {
+                                name: 'SAFUUX',
+                                symbol: 'SAFUUX',
+                                decimals: 18
+                            },
+                            rpcUrls: ['https://mainnet-rpc.nasdaqchain.com/'],
+                            blockExplorerUrls: ['https://nasdaqchain.com/']
+                        }]
+                    }
+                } else {
+                    if (netID == "13808") {
+                        alert("SAFUUX Test Network has already been added to Metamask."); 
+                        return;
+                    } else {
+                        params = [{
+                            chainId: '0x35F0',
+                            chainName: 'Dwebox Chain Testnet',
+                            nativeCurrency: {
+                                name: 'SAFUUX',
+                                symbol: 'SAFUUX',
+                                decimals: 18
+                            },
+                            rpcUrls: ['https://test1-rpc.dwebox.com/'],
+                            blockExplorerUrls: ['https://test-scan.dwebox.com/']
+                        }]
+                    }
+                }
+
+                window.ethereum.request({ method: 'wallet_addEthereumChain', params })
+                    .then(() => console.log('Success'))
+                    .catch((error) => console.log("Error", error.message));
+            } else {
+                alert('Unable to locate a compatible web3 browser!');
+            }
+        }
+    </script>
